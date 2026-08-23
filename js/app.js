@@ -147,6 +147,7 @@
       <section class="section">
         <div class="container">
           <div class="section-header">
+            <p class="section-index">01 · PROJECTS</p>
             <h2>项目招募中</h2>
             ${renderCountdown()}
           </div>
