@@ -5,7 +5,38 @@
 
   const APPLY_LINK_DEFAULT = 'https://tideclub26.feishu.cn/share/base/form/shrcnYVMC76jFL0oD5ChfRJbBff';
   const APPLY_LINK_YUHONG = 'https://tideclub26.feishu.cn/share/base/form/shrcnlmjpcnAIq55M84kT2YtrTe';
+  const STUDY_GROUP_LINK = 'https://tide-club.github.io/studygroup.github.io/';
   const DEADLINE = new Date('2026-06-14T12:00:00+08:00').getTime();
+
+  const raSamples = [
+    {
+      title: '智能系统研究助理',
+      direction: '大语言模型、智能体与知识增强',
+      work: '文献调研、实验复现、数据分析与原型验证',
+      audience: '对科研感兴趣并具备基础编程能力的学生'
+    },
+    {
+      title: '数据与社会计算研究助理',
+      direction: '数据科学、社会计算与交叉研究',
+      work: '数据整理、研究设计、模型评估与结果汇报',
+      audience: '愿意持续投入研究训练并具备数据分析基础的学生'
+    }
+  ];
+
+  const internshipSamples = [
+    {
+      title: 'AI 应用开发实习生',
+      direction: '企业 AI 应用、智能体与自动化工作流',
+      work: '需求分析、应用原型开发、测试迭代与项目交付',
+      audience: '具备编程基础并希望参与真实业务项目的学生'
+    },
+    {
+      title: '数据分析与产品研究实习生',
+      direction: '业务数据分析、产品研究与行业洞察',
+      work: '数据处理、用户调研、方案整理与成果展示',
+      audience: '对数据、产品或行业研究感兴趣的学生'
+    }
+  ];
 
   function esc(value) {
     return String(value ?? '')
@@ -93,6 +124,22 @@
     </article>`;
   }
 
+  function sampleOpportunityCard(item, type) {
+    return `<article class="sample-opportunity">
+      <div class="sample-card-head">
+        <span class="badge primary">展示样例</span>
+        <span class="sample-type">${esc(type)}</span>
+      </div>
+      <h3>${esc(item.title)}</h3>
+      <dl class="sample-details">
+        <div><dt>方向</dt><dd>${esc(item.direction)}</dd></div>
+        <div><dt>工作内容</dt><dd>${esc(item.work)}</dd></div>
+        <div><dt>适合人群</dt><dd>${esc(item.audience)}</dd></div>
+      </dl>
+      <span class="btn btn-disabled btn-sm" aria-disabled="true">报名功能开发中</span>
+    </article>`;
+  }
+
   function renderHome() {
     const projects = getAllProjects();
 
@@ -107,6 +154,52 @@
             ${projects.map(project => projectCard(project)).join('')}
           </div>
           <div style="text-align:center;margin-top:28px;">${btn('#/projects', '查看全部项目', 'secondary')}</div>
+        </div>
+      </section>
+
+      <section class="section portal-section learning-section">
+        <div class="container learning-layout">
+          <div class="portal-copy">
+            <p class="section-index">02 · LEARNING GROUPS</p>
+            <h2>学习小组</h2>
+            <p class="lead">学习小组由同学自主发起，围绕 AI 工具、编程基础、论文阅读和行业主题开展持续共学。TIDE 为各小组提供组队、资料、交流与成果沉淀支持。</p>
+            <div class="portal-actions">${btn(STUDY_GROUP_LINK, '进入学习小组', 'primary')}</div>
+          </div>
+          <div class="learning-points">
+            <div><span>01</span><h3>主题共学</h3><p>围绕清晰主题制定学习计划，在持续投入中建立知识框架。</p></div>
+            <div><span>02</span><h3>同伴交流</h3><p>通过讨论、分享和互助，让个人探索成为共同成长的过程。</p></div>
+            <div><span>03</span><h3>成果沉淀</h3><p>将笔记、工具、案例与实践结果整理为可复用的学习成果。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section portal-section ra-section">
+        <div class="container">
+          <div class="opportunity-heading">
+            <div>
+              <p class="section-index">03 · RESEARCH ASSISTANT</p>
+              <h2>RA 招募</h2>
+              <p class="lead">未来将为教授发布研究助理岗位，帮助有研究兴趣的同学了解课题方向、工作内容、能力要求和申请方式。</p>
+            </div>
+            <span class="development-status">功能开发中</span>
+          </div>
+          <p class="sample-notice">以下内容仅用于展示未来岗位信息的呈现形式，不代表真实招募。</p>
+          <div class="sample-grid">${raSamples.map(item => sampleOpportunityCard(item, 'RA')).join('')}</div>
+        </div>
+      </section>
+
+      <section class="section portal-section internship-section">
+        <div class="container">
+          <div class="opportunity-heading">
+            <div>
+              <p class="section-index">04 · INTERNSHIPS</p>
+              <h2>企业实习生招募</h2>
+              <p class="lead">未来将为合作企业提供实习岗位发布入口，集中展示岗位职责、技能要求、工作安排和学生报名方式。</p>
+            </div>
+            <span class="development-status">功能开发中</span>
+          </div>
+          <p class="sample-notice">以下内容仅用于展示未来岗位信息的呈现形式，不代表真实招聘。</p>
+          <div class="sample-grid">${internshipSamples.map(item => sampleOpportunityCard(item, '企业实习')).join('')}</div>
         </div>
       </section>
     </div>`;
