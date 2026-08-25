@@ -1,7 +1,7 @@
 window.TIDE_DATA = {
   "club": {
     "name": "TIDE Club",
-    "slogan": "Technology and Innovation in Digital Era",
+    "slogan": "A Community for Tech, Innovation, Design and Education",
     "description": "TIDE俱乐部是一个青年学生自我管理、自主运营的实践平台，旨在汇聚一批希望在实践中互相学习、互助帮助、共同成长的大学生。\n\n在TIDE，所有活动都聚焦于一件事：做项目。项目形式灵活多样，既可以围绕某一主题深入学习，也可以是探索性的研究，或是致力于解决实际问题。你既可以加入现有项目，也能发起并定义属于自己的项目。",
     "universities": [
       "香港中文大学（深圳）",

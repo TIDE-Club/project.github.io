@@ -6,6 +6,9 @@
   const APPLY_LINK_DEFAULT = 'https://tideclub26.feishu.cn/share/base/form/shrcnYVMC76jFL0oD5ChfRJbBff';
   const APPLY_LINK_YUHONG = 'https://tideclub26.feishu.cn/share/base/form/shrcnlmjpcnAIq55M84kT2YtrTe';
   const STUDY_GROUP_LINK = 'https://tide-club.github.io/studygroup.github.io/';
+  const PROJECT_DETAIL_LINK = 'https://tide-club.github.io/joinprojects.github.io/';
+  const RA_DETAIL_LINK = 'https://tide-club.github.io/ResearchAssistantRecruit.github.io/';
+  const INTERNSHIP_DETAIL_LINK = 'https://tide-club.github.io/internship.github.io/';
   const DEADLINE = new Date('2026-06-14T12:00:00+08:00').getTime();
 
   const raSamples = [
@@ -140,21 +143,50 @@
     </article>`;
   }
 
+  function portalPoints(items) {
+    return `<div class="learning-points">${items.map((item, index) => `<div><span>0${index + 1}</span><h3>${esc(item.title)}</h3><p>${esc(item.description)}</p></div>`).join('')}</div>`;
+  }
+
   function renderHome() {
-    const projects = getAllProjects();
+    const club = DATA.club || {};
+    const missions = club.missions || [];
 
     return `<div class="fade-in">
-      <section class="section">
-        <div class="container">
-          <div class="section-header">
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1>${esc(club.name || 'TIDE Club')}</h1>
+            <p class="hero-slogan">${esc(club.slogan || 'A Community for Tech, Innovation, Design and Education')}</p>
+            <div class="hero-description">${paragraphs(club.description)}</div>
+          </div>
+          <aside class="hero-panel">
+            <h2>TIDE 俱乐部行动纲领</h2>
+            <div class="mission-mini-grid">
+              ${missions.map((mission, index) => {
+                const parts = String(mission).split('：');
+                const title = parts.shift() || mission;
+                const description = parts.join('：');
+                return `<div class="mission-mini"><span class="icon-bubble">${index + 1}</span><div><h3>${esc(title)}</h3>${description ? `<p class="muted small">${esc(description)}</p>` : ''}</div></div>`;
+              }).join('')}
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section portal-section">
+        <div class="container learning-layout">
+          <div class="portal-copy">
             <p class="section-index">01 · PROJECTS</p>
-            <h2>项目招募中</h2>
-            ${renderCountdown()}
+            <h2>项目招募</h2>
+            <p class="lead">浏览 TIDE Club 当前展示的实践项目，了解项目方向、合作单位、岗位要求、预期产出与报名方式。你也可以通过项目详情页找到适合自己的真实实践机会。</p>
+            <div class="portal-actions">${btn(PROJECT_DETAIL_LINK, '进入项目详情', 'primary')}</div>
           </div>
-          <div class="grid grid-3 home-project-grid">
-            ${projects.map(project => projectCard(project)).join('')}
-          </div>
-          <div style="text-align:center;margin-top:28px;">${btn('#/projects', '查看全部项目', 'secondary')}</div>
+          ${portalPoints([
+            { title: '真实议题', description: '围绕技术、产业与社会场景开展项目实践。' },
+            { title: '协作成长', description: '与不同背景的伙伴共同推进调研、设计、开发与展示。' },
+            { title: '成果沉淀', description: '形成可展示、可复用的项目成果与实践经验。' }
+          ])}
         </div>
       </section>
 
@@ -166,41 +198,43 @@
             <p class="lead">学习小组由同学自主发起，围绕 AI 工具、编程基础、论文阅读和行业主题开展持续共学。TIDE 为各小组提供组队、资料、交流与成果沉淀支持。</p>
             <div class="portal-actions">${btn(STUDY_GROUP_LINK, '进入学习小组', 'primary')}</div>
           </div>
-          <div class="learning-points">
-            <div><span>01</span><h3>主题共学</h3><p>围绕清晰主题制定学习计划，在持续投入中建立知识框架。</p></div>
-            <div><span>02</span><h3>同伴交流</h3><p>通过讨论、分享和互助，让个人探索成为共同成长的过程。</p></div>
-            <div><span>03</span><h3>成果沉淀</h3><p>将笔记、工具、案例与实践结果整理为可复用的学习成果。</p></div>
-          </div>
+          ${portalPoints([
+            { title: '主题共学', description: '围绕清晰主题制定学习计划，在持续投入中建立知识框架。' },
+            { title: '同伴交流', description: '通过讨论、分享和互助，让个人探索成为共同成长的过程。' },
+            { title: '成果沉淀', description: '将笔记、工具、案例与实践结果整理为可复用的学习成果。' }
+          ])}
         </div>
       </section>
 
       <section class="section portal-section ra-section">
-        <div class="container">
-          <div class="opportunity-heading">
-            <div>
-              <p class="section-index">03 · RESEARCH ASSISTANT</p>
-              <h2>RA 招募</h2>
-              <p class="lead">未来将为教授发布研究助理岗位，帮助有研究兴趣的同学了解课题方向、工作内容、能力要求和申请方式。</p>
-            </div>
-            <span class="development-status">功能开发中</span>
+        <div class="container learning-layout">
+          <div class="portal-copy">
+            <p class="section-index">03 · RESEARCH ASSISTANT</p>
+            <h2>RA 招募</h2>
+            <p class="lead">面向未来教授与研究团队的研究助理岗位发布平台。这里将集中呈现研究方向、工作内容、能力要求与申请渠道。</p>
+            <div class="portal-actions">${btn(RA_DETAIL_LINK, '查看 RA 招募详情', 'primary')}</div>
           </div>
-          <p class="sample-notice">以下内容仅用于展示未来岗位信息的呈现形式，不代表真实招募。</p>
-          <div class="sample-grid">${raSamples.map(item => sampleOpportunityCard(item, 'RA')).join('')}</div>
+          ${portalPoints([
+            { title: '研究方向', description: '了解不同课题组关注的问题、方法与研究场景。' },
+            { title: '岗位信息', description: '查看研究任务、能力要求与预期投入。' },
+            { title: '持续更新', description: '功能正在开发，真实岗位将陆续在详情页发布。' }
+          ])}
         </div>
       </section>
 
       <section class="section portal-section internship-section">
-        <div class="container">
-          <div class="opportunity-heading">
-            <div>
-              <p class="section-index">04 · INTERNSHIPS</p>
-              <h2>企业实习生招募</h2>
-              <p class="lead">未来将为合作企业提供实习岗位发布入口，集中展示岗位职责、技能要求、工作安排和学生报名方式。</p>
-            </div>
-            <span class="development-status">功能开发中</span>
+        <div class="container learning-layout">
+          <div class="portal-copy">
+            <p class="section-index">04 · INTERNSHIPS</p>
+            <h2>企业实习生招募</h2>
+            <p class="lead">面向合作企业的实习岗位展示平台。未来将提供岗位职责、技能要求、工作安排与学生报名入口，帮助同学连接真实行业实践。</p>
+            <div class="portal-actions">${btn(INTERNSHIP_DETAIL_LINK, '查看实习招募详情', 'primary')}</div>
           </div>
-          <p class="sample-notice">以下内容仅用于展示未来岗位信息的呈现形式，不代表真实招聘。</p>
-          <div class="sample-grid">${internshipSamples.map(item => sampleOpportunityCard(item, '企业实习')).join('')}</div>
+          ${portalPoints([
+            { title: '企业机会', description: '聚合合作企业面向学生开放的实习与实践岗位。' },
+            { title: '岗位匹配', description: '清晰呈现职责、要求和适合的能力背景。' },
+            { title: '开发中', description: '岗位信息正在筹备，详情页将展示发布样例。' }
+          ])}
         </div>
       </section>
     </div>`;
@@ -359,10 +393,7 @@
     const raw = (window.location.hash || '#/').replace(/^#\/?/, '').replace(/^\//, '');
     const parts = raw.split('/').filter(Boolean).map(decodeURIComponent);
     if (!parts.length) return { name: 'home' };
-    if (parts[0] === 'projects' && parts.length === 1) return { name: 'projects' };
-    if (parts[0] === 'projects' && parts.length >= 2 && parts[2] === 'sub') return { name: 'subproject', projectId: parts[1], subId: parts[3] };
-    if (parts[0] === 'projects' && parts.length >= 2) return { name: 'project', projectId: parts[1] };
-    return { name: 'notfound' };
+    return { name: 'home' };
   }
 
   function updateNav(routeName) {
