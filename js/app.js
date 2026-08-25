@@ -167,7 +167,7 @@
                 const parts = String(mission).split('：');
                 const title = parts.shift() || mission;
                 const description = parts.join('：');
-                return `<div class="mission-mini"><span class="icon-bubble">${index + 1}</span><div><h3>${esc(title)}</h3>${description ? `<p class="muted small">${esc(description)}</p>` : ''}</div></div>`;
+                return `<div class="mission-mini"><span class="icon-bubble">${index + 1}</span><div><h3 class="mission-mini-label">${esc(title)}</h3>${description ? `<p class="mission-mini-content">${esc(description)}</p>` : ''}</div></div>`;
               }).join('')}
             </div>
           </aside>
