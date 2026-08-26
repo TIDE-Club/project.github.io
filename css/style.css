@@ -77,7 +77,7 @@ p { margin: 0; }
 .hero-panel h2 { font-size: clamp(22px, 2.4vw, 30px); }
 .mission-mini-grid { display: grid; gap: 14px; margin-top: 18px; }
 .mission-mini { display: flex; gap: 14px; padding: 14px; border-radius: 16px; background: rgba(241,245,249,.8); border: 1px solid rgba(226,232,240,.9); }
-.mission-mini-label { font-size: 13px; font-weight: 400; color: var(--muted); }
+.mission-mini-label { font-size: 13px; font-weight: 800; color: #1f5a4a; }
 .mission-mini-content { margin-top: 3px; color: #111827; font-size: 15px; font-weight: 800; }
 .icon-bubble { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 14px; background: var(--primary-soft); color: var(--primary); flex: 0 0 auto; font-weight: 800; }
 .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 28px; }
