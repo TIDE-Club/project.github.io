@@ -206,7 +206,7 @@
         </div>
       </section>
 
-      <section class="section portal-section ra-section">
+      <section class="section portal-section ra-section" hidden>
         <div class="container learning-layout">
           <div class="portal-copy">
             <p class="section-index">03 · RESEARCH ASSISTANT</p>
@@ -222,7 +222,7 @@
         </div>
       </section>
 
-      <section class="section portal-section internship-section">
+      <section class="section portal-section internship-section" hidden>
         <div class="container learning-layout">
           <div class="portal-copy">
             <p class="section-index">04 · INTERNSHIPS</p>
